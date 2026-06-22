@@ -57,3 +57,54 @@ export interface Order {
   created_at: string;
   updated_at: string;
 }
+
+export interface AiRecommendation extends Product {
+  match_score: number;
+  match_reasons: string[];
+}
+
+export interface AiAssistantResponse {
+  answer: string;
+  extractedIntent: {
+    originalMessage: string;
+    normalizedMessage: string;
+    category?: string;
+    maxPriceCents?: number;
+    minPriceCents?: number;
+    useCases: string[];
+    keywords: string[];
+  };
+  recommendations: AiRecommendation[];
+  followUpQuestions: string[];
+}
+
+export interface ProductReviewSummary {
+  productId: string;
+  productName: string;
+  reviewCount: number;
+  sentiment: string;
+  summary: string;
+  highlights: string[];
+  ratingBreakdown: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+}
+
+export interface SellerAiInsights {
+  summary: string;
+  actions: Array<{
+    type: string;
+    title: string;
+    detail: string;
+    priority: 'high' | 'medium' | 'low' | string;
+  }>;
+  lowStockCount: number;
+  productsTracked: number;
+  bestSeller: null | {
+    name: string;
+    unitsSold: number;
+    revenueCents: number;
+  };
+}

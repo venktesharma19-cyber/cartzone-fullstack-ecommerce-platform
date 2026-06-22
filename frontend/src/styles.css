@@ -155,3 +155,141 @@ textarea { min-height: 110px; }
   .filters, .grid, .panelList, .adminGrid { grid-template-columns: 1fr; }
   .reviewForm { grid-template-columns: 1fr; }
 }
+
+.aiPanel {
+  background: radial-gradient(circle at top left, rgba(255, 138, 0, 0.16), transparent 38%), #ffffff;
+  border: 1px solid #e6eaf2;
+  border-radius: 26px;
+  box-shadow: 0 16px 34px rgba(21,31,52,0.08);
+  padding: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.aiPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.aiPanelHeader h2 { margin: 0.2rem 0 0.5rem; }
+.aiPanelHeader p { margin: 0; color: #637083; }
+.aiPanelHeader.compact { margin-bottom: 1rem; }
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  white-space: nowrap;
+  border-radius: 999px;
+  background: #e8f7ff;
+  color: #075985;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 0.35rem 0.7rem;
+}
+.aiAskBar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.8rem;
+  margin: 1.2rem 0 0.8rem;
+}
+.promptChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chipButton, .plainChip {
+  border-radius: 999px;
+  background: #f3f6fb;
+  color: #344055;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+.chipButton { border: 1px solid #e4e9f3; }
+.plainChip { display: inline-flex; }
+.aiResult {
+  margin-top: 1rem;
+  border-top: 1px solid #edf1f7;
+  padding-top: 1rem;
+}
+.intentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0.9rem 0;
+}
+.intentGrid span, .insightCard {
+  background: #f7f9fc;
+  border: 1px solid #e7ebf3;
+  border-radius: 16px;
+  padding: 0.8rem;
+}
+.aiRecommendations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.aiRecommendation {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 0.8rem;
+  align-items: center;
+  border: 1px solid #e7ebf3;
+  border-radius: 18px;
+  padding: 0.7rem;
+  background: white;
+}
+.aiRecommendation img {
+  width: 92px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.aiRecommendation div { display: grid; gap: 0.25rem; }
+.aiRecommendation span, .aiRecommendation small { color: #637083; }
+.aiSummaryCard { border-color: #cfefff; }
+.aiMiniHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.aiInsightsPanel { margin-bottom: 2rem; }
+.insightGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.insightCard p { margin: 0.4rem 0; }
+.actionList { display: grid; gap: 0.7rem; margin-top: 1rem; }
+.actionItem {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  border-top: 1px solid #edf1f7;
+  padding-top: 0.8rem;
+}
+.actionItem p { margin: 0.25rem 0 0; color: #637083; }
+.priority {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 0.35rem 0.55rem;
+  text-align: center;
+  background: #edf1f7;
+}
+.priority.high { background: #ffe4e4; color: #b42318; }
+.priority.medium { background: #fff3df; color: #a45c00; }
+.priority.low { background: #e9f8ef; color: #0f766e; }
+
+@media (max-width: 980px) {
+  .aiRecommendations, .intentGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .aiPanelHeader, .aiAskBar, .insightGrid, .actionItem { grid-template-columns: 1fr; }
+  .aiPanelHeader { flex-direction: column; }
+  .aiRecommendation { grid-template-columns: 1fr; }
+  .aiRecommendation img { width: 100%; height: 160px; }
+}

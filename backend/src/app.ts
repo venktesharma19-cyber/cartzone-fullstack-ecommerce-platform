@@ -11,6 +11,7 @@ import { sellerRoutes } from './routes/seller.routes';
 import { adminRoutes } from './routes/admin.routes';
 import { uploadRoutes } from './routes/upload.routes';
 import { webhookRoutes } from './routes/webhook.routes';
+import { aiRoutes } from './routes/ai.routes';
 import { errorHandler, notFound } from './middleware/errorHandler';
 
 export const app = express();
@@ -37,6 +38,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

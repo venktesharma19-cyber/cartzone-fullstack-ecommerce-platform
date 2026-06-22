@@ -17,6 +17,8 @@ async function upsertUser(name: string, email: string, role: 'buyer' | 'seller' 
 
 async function seed() {
   const buyerId = await upsertUser('Demo Buyer', 'buyer@cartzone.dev', 'buyer');
+  const buyerTwoId = await upsertUser('Priya Reviewer', 'priya@cartzone.dev', 'buyer');
+  const buyerThreeId = await upsertUser('Alex Reviewer', 'alex@cartzone.dev', 'buyer');
   const sellerId = await upsertUser('Demo Seller', 'seller@cartzone.dev', 'seller');
   await upsertUser('Demo Admin', 'admin@cartzone.dev', 'admin');
 
@@ -65,13 +67,26 @@ async function seed() {
     );
   }
 
-  const firstProduct = await pool.query('SELECT id FROM products LIMIT 1');
-  if (firstProduct.rowCount) {
+  const productRows = await pool.query('SELECT id, name FROM products');
+  const productByName = Object.fromEntries(productRows.rows.map((row) => [row.name, row.id]));
+  const reviews = [
+    ['EchoWave Bluetooth Speaker', buyerId, 5, 'Great quality for the price. Delivery and packaging were smooth.'],
+    ['EchoWave Bluetooth Speaker', buyerTwoId, 4, 'Portable design and strong bass. Battery performance is good for outdoor use.'],
+    ['AeroFit Boxing Gloves', buyerId, 5, 'Comfortable for heavy bag training and the wrist support feels solid.'],
+    ['AeroFit Boxing Gloves', buyerThreeId, 4, 'Good value for boxing class. The build quality feels durable.'],
+    ['Nordic Desk Lamp', buyerTwoId, 5, 'Minimal design, easy controls, and the warm light works great for my desk setup.'],
+    ['CloudRest Pillow', buyerThreeId, 4, 'Cooling cover is comfortable and neck support is better than my old pillow.'],
+    ['ProTab 11 Tablet', buyerId, 4, 'Good for streaming and reading. Battery life is solid for the price.']
+  ] as const;
+
+  for (const [productName, userId, rating, comment] of reviews) {
+    const productId = productByName[productName];
+    if (!productId) continue;
     await pool.query(
       `INSERT INTO reviews (product_id, user_id, rating, comment)
-       VALUES ($1, $2, 5, 'Great quality for the price. Delivery and packaging were smooth.')
-       ON CONFLICT (product_id, user_id) DO NOTHING`,
-      [firstProduct.rows[0].id, buyerId]
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (product_id, user_id) DO UPDATE SET rating = EXCLUDED.rating, comment = EXCLUDED.comment`,
+      [productId, userId, rating, comment]
     );
   }
 

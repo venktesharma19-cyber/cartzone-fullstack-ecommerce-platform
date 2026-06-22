@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { api } from '../lib/api';
 import { Product } from '../types';
 import { ProductCard } from '../components/ProductCard';
+import { AiShoppingAssistant } from '../components/AiShoppingAssistant';
 
 interface Category { id: string; name: string; slug: string }
 
@@ -31,15 +32,17 @@ export function HomePage() {
     <>
       <section className="hero">
         <div>
-          <p className="eyebrow">Full-stack portfolio project</p>
+          {/* <p className="eyebrow">Full-stack portfolio project</p> */}
           <h1>Shop smarter with CartZone.</h1>
           <p>Search products, manage carts, checkout securely, track orders, and run seller/admin workflows in one clean app.</p>
         </div>
-        <div className="heroCard">
+        {/* <div className="heroCard">
           <strong>Stack</strong>
           <span>React · Node · PostgreSQL · Redis · Stripe · Docker</span>
-        </div>
+        </div> */}
       </section>
+
+      <AiShoppingAssistant />
 
       <form className="filters" onSubmit={submit}>
         <input placeholder="Search products" value={filters.q} onChange={(e) => setFilters({ ...filters, q: e.target.value })} />

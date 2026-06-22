@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { useAppSelector } from '../store/hooks';
 import { money } from '../lib/money';
+import { SellerAiInsights } from '../types';
 
 interface SellerProduct {
   id: string;
@@ -20,15 +21,18 @@ export function SellerDashboardPage() {
   const [products, setProducts] = useState<SellerProduct[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [sales, setSales] = useState({ orders: 0, units_sold: 0, revenue_cents: 0 });
+  const [insights, setInsights] = useState<SellerAiInsights | null>(null);
   const [form, setForm] = useState({ categoryId: '', name: '', description: '', priceCents: 2500, inventory: 10, imageUrl: '' });
 
   async function load() {
-    const [dashboard, categoryData] = await Promise.all([
+    const [dashboard, categoryData, aiData] = await Promise.all([
       api<{ products: SellerProduct[]; sales: typeof sales }>('/seller/dashboard'),
-      api<Category[]>('/products/categories', { auth: false })
+      api<Category[]>('/products/categories', { auth: false }),
+      api<SellerAiInsights>('/ai/seller/insights')
     ]);
     setProducts(dashboard.products);
     setSales(dashboard.sales);
+    setInsights(aiData);
     setCategories(categoryData);
     if (!form.categoryId && categoryData[0]) setForm((prev) => ({ ...prev, categoryId: categoryData[0].id }));
   }
@@ -57,6 +61,44 @@ export function SellerDashboardPage() {
         <div><strong>{sales.units_sold}</strong><span>Units sold</span></div>
         <div><strong>{money(sales.revenue_cents)}</strong><span>Revenue</span></div>
       </div>
+
+      {insights && (
+        <section className="panel aiInsightsPanel">
+          <div className="aiPanelHeader compact">
+            <div>
+              <p className="eyebrow">AI seller copilot</p>
+              <h2>Merchandising insights</h2>
+              <p>{insights.summary}</p>
+            </div>
+            <span className="aiBadge">{insights.productsTracked} products tracked</span>
+          </div>
+          <div className="insightGrid">
+            {insights.bestSeller && (
+              <article className="insightCard">
+                <strong>Best seller</strong>
+                <p>{insights.bestSeller.name}</p>
+                <small>{insights.bestSeller.unitsSold} units · {money(insights.bestSeller.revenueCents)}</small>
+              </article>
+            )}
+            <article className="insightCard">
+              <strong>Low stock risk</strong>
+              <p>{insights.lowStockCount} products need attention</p>
+              <small>Generated from inventory levels</small>
+            </article>
+          </div>
+          <div className="actionList">
+            {insights.actions.map((action) => (
+              <article className="actionItem" key={`${action.type}-${action.title}`}>
+                <span className={`priority ${action.priority}`}>{action.priority}</span>
+                <div>
+                  <strong>{action.title}</strong>
+                  <p>{action.detail}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="twoColumn">
         <form className="panel" onSubmit={addProduct}>

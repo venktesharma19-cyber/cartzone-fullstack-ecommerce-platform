@@ -1,6 +1,6 @@
 # 🛍️ CartZone — Full Stack Shopping Platform
 
-CartZone is a professional full-stack shopping platform inspired by Amazon-style workflows: product catalog, Redis-backed cart, Stripe checkout, order tracking, seller dashboard, product reviews, admin panel, JWT authentication, PostgreSQL persistence, Docker, CI, and automated tests.
+CartZone is a professional full-stack shopping platform inspired by Amazon-style workflows: product catalog, Redis-backed cart, Stripe checkout, order tracking, seller dashboard, product reviews, admin panel, JWT authentication, PostgreSQL persistence, Docker, CI, automated tests, and an AI shopping layer for 2026-era product discovery.
 
 This project is designed to be clean enough for GitHub, LinkedIn, and recruiter conversations.
 
@@ -17,17 +17,29 @@ This project is designed to be clean enough for GitHub, LinkedIn, and recruiter 
 - **DevOps:** Docker Compose, Dockerfiles, GitHub Actions CI
 - **Testing:** Jest + Supertest coverage for health route, token logic, cart logic, and order totals
 - **Cloud-ready:** AWS S3 presigned upload URL support for product images
+- **AI commerce layer:** Natural-language shopping assistant, intent extraction, budget-aware recommendations, AI review summaries, and seller merchandising insights
 
 ## Screens you get
 
-- Home/product catalog with search, category filter, price filter, and sorting
-- Product details page with reviews and star ratings
+- Home/product catalog with search, category filter, price filter, sorting, and AI shopping assistant
+- Product details page with reviews, star ratings, and AI-generated review summary
 - Cart page powered by Redis backend
 - Checkout page with Stripe/demo checkout
 - Order history and live order status stream
-- Seller dashboard for inventory and sales
+- Seller dashboard for inventory, sales, and AI merchandising recommendations
 - Admin panel for users, products, and orders
 - Login/register/email verification flow
+
+## AI-era features added
+
+CartZone now includes an AI commerce layer that makes the project feel more current than a basic CRUD shopping app:
+
+- **AI Shopping Assistant:** Users can type prompts like “find me workout gear under $80” or “I need a tech gift with strong ratings.”
+- **Intent extraction:** Backend extracts category, budget, keywords, and use-case signals from natural language.
+- **Budget-aware product ranking:** Recommendations are ranked using category match, keyword relevance, rating, inventory availability, and price fit.
+- **AI review summaries:** Product pages generate buyer-friendly summaries from customer reviews with sentiment and common highlights.
+- **Seller AI Copilot:** Seller dashboard surfaces restock alerts, trust/review gaps, best-seller promotion ideas, and inventory risks.
+- **No paid AI key required:** The current implementation uses a deterministic local AI-style ranking engine so recruiters can run it immediately. It is structured so you can later swap the service with OpenAI, Bedrock, Gemini, or another LLM provider.
 
 ## Project structure
 
@@ -228,7 +240,7 @@ git push -u origin main
 
 Use this in your LinkedIn Projects section:
 
-> Built CartZone, a full-stack shopping platform with React, TypeScript, Redux Toolkit, Node.js, Express, PostgreSQL, Redis, Stripe, Docker, and GitHub Actions. Implemented product search/filtering, Redis-backed cart persistence, JWT auth with refresh token rotation, Stripe checkout and webhooks, order tracking, seller inventory dashboard, admin management, product reviews, automated Jest/Supertest tests, and AWS S3-ready product image uploads.
+> Built CartZone, a full-stack AI-enhanced shopping platform with React, TypeScript, Redux Toolkit, Node.js, Express, PostgreSQL, Redis, Stripe, Docker, and GitHub Actions. Implemented natural-language product discovery, budget-aware AI recommendations, AI review summaries, seller AI insights, product search/filtering, Redis-backed cart persistence, JWT auth with refresh token rotation, Stripe checkout and webhooks, order tracking, seller inventory dashboard, admin management, automated Jest/Supertest tests, and AWS S3-ready product image uploads.
 
 ## Portfolio talking points
 
@@ -236,6 +248,8 @@ Use this in your LinkedIn Projects section:
 - “I modeled orders, order items, inventory, reviews, roles, and refresh-token rotation in PostgreSQL.”
 - “Stripe checkout is production-shaped with webhook handling, but the app also has a local demo fallback.”
 - “Seller and admin flows show real-world role-based access control.”
+- “The AI layer extracts buyer intent and ranks product recommendations without requiring paid API keys for local demos.”
+- “Seller AI insights turn inventory, sales, and review data into actionable merchandising recommendations.”
 - “Docker Compose lets recruiters run the whole app with one command.”
 
 ## Notes

@@ -205,3 +205,50 @@ Authorization: Bearer <access-token>
   "fileType": "image/jpeg"
 }
 ```
+
+## AI Commerce Layer
+
+### AI shopping assistant
+
+```http
+POST /ai/assistant
+```
+
+```json
+{
+  "message": "Find me workout gear under $80"
+}
+```
+
+Returns extracted intent, ranked product recommendations, match scores, and recommendation reasons.
+
+### Semantic-style product search
+
+```http
+POST /ai/semantic-search
+```
+
+```json
+{
+  "query": "I need a tech gift with strong ratings"
+}
+```
+
+Uses the same local AI ranking service as the assistant route.
+
+### Product review summary
+
+```http
+GET /ai/products/:id/summary
+```
+
+Returns review sentiment, a buyer-friendly summary, common highlights, and positive/neutral/negative counts.
+
+### Seller AI insights
+
+```http
+GET /ai/seller/insights
+Authorization: Bearer <seller-or-admin-access-token>
+```
+
+Returns restock alerts, review/trust gaps, best-seller promotion ideas, and inventory risk signals.

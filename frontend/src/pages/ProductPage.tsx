@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../lib/api';
-import { ProductDetails } from '../types';
+import { ProductDetails, ProductReviewSummary } from '../types';
 import { money } from '../lib/money';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { addCartItem } from '../store/cartSlice';
@@ -11,11 +11,17 @@ export function ProductPage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const [product, setProduct] = useState<ProductDetails | null>(null);
+  const [aiSummary, setAiSummary] = useState<ProductReviewSummary | null>(null);
   const [review, setReview] = useState({ rating: 5, comment: '' });
 
   async function load() {
     if (!id) return;
-    setProduct(await api<ProductDetails>(`/products/${id}`, { auth: false }));
+    const [productData, summaryData] = await Promise.all([
+      api<ProductDetails>(`/products/${id}`, { auth: false }),
+      api<ProductReviewSummary>(`/ai/products/${id}/summary`, { auth: false })
+    ]);
+    setProduct(productData);
+    setAiSummary(summaryData);
   }
 
   useEffect(() => { load(); }, [id]);
@@ -40,6 +46,20 @@ export function ProductPage() {
         <h2>{money(product.price_cents)}</h2>
         <p>{product.inventory} left in stock</p>
         <button onClick={() => dispatch(addCartItem({ productId: product.id, quantity: 1 }))}>Add to cart</button>
+
+        {aiSummary && (
+          <section className="panel aiSummaryCard">
+            <div className="aiMiniHeader">
+              <span className="aiBadge">AI review summary</span>
+              <strong>{aiSummary.sentiment}</strong>
+            </div>
+            <p>{aiSummary.summary}</p>
+            <div className="promptChips">
+              {aiSummary.highlights.map((highlight) => <span className="plainChip" key={highlight}>{highlight}</span>)}
+            </div>
+            <small>{aiSummary.ratingBreakdown.positive} positive · {aiSummary.ratingBreakdown.neutral} neutral · {aiSummary.ratingBreakdown.negative} negative</small>
+          </section>
+        )}
 
         <section className="panel">
           <h2>Reviews</h2>
