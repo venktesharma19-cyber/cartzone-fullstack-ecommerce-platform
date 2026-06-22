@@ -1,0 +1,22 @@
+{
+  "name": "cartzone-fullstack-shopping-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CartZone monorepo setup helper for React frontend and Express backend.",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "setup:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/install-dependencies.ps1",
+    "setup": "npm run install:all",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "db:migrate": "npm --prefix backend run db:migrate",
+    "db:seed": "npm --prefix backend run db:seed",
+    "test": "npm --prefix backend test",
+    "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+CartZone local requirements
+===========================
+
+This is a Node.js full-stack project, so dependencies are installed from package.json files, not with pip.
+
+Required system software:
+- Node.js LTS 20 or newer
+- npm 10 or newer
+- PostgreSQL 16 or 17
+
+Optional software:
+- Docker Desktop, only if you want docker compose
+- Redis, only if you want REDIS_MODE=redis
+- Stripe CLI, only if you want to test real Stripe webhooks locally
+
+Project dependency install commands:
+- Windows easiest: install-dependencies.bat
+- PowerShell: powershell -ExecutionPolicy Bypass -File scripts/install-dependencies.ps1
+- npm script: npm run install:all
+
+Backend dependencies are listed in:
+- backend/package.json
+
+Frontend dependencies are listed in:
+- frontend/package.json
+
+Local no-Docker Redis setting:
+- backend/.env should include REDIS_MODE=memory
