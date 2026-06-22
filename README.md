@@ -255,3 +255,25 @@ Use this in your LinkedIn Projects section:
 ## Notes
 
 This is a reference project. For production, add rate limiting, request logging with trace IDs, stricter CSP, real email provider integration, image validation, observability, and deployment-specific secrets management.
+
+
+## Application Screenshots
+
+### Home Page
+<img src="docs/screenshots/homepage.png" alt="CartZone Home Page" width="900" />
+
+### AI Shopping Assistant
+<img src="docs/screenshots/ai-shopping-assistant.png" alt="CartZone AI Shopping Assistant" width="900" />
+
+### Product Details and AI Review Summary
+<img src="docs/screenshots/product-details.png" alt="CartZone Product Details and AI Review Summary" width="900" />
+
+### Cart and Checkout
+<img src="docs/screenshots/cart-checkout.png" alt="CartZone Cart and Checkout" width="900" />
+
+### Seller Dashboard and AI Copilot
+<img src="docs/screenshots/seller-dashboard.png" alt="CartZone Seller Dashboard" width="900" />
+
+### Admin Panel
+<img src="docs/screenshots/admin-panel.png" alt="CartZone Admin Panel" width="900" />
+
